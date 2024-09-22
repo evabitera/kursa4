@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="{% url 'blog:blog_create' %}" class ="btn btn-primary">Создать блог</a>
+<div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ object.count_views }} </h1>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'blog:blog_detail' object.pk %}">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}
+</div>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

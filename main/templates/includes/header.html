@@ -1,0 +1,19 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">Skystore</h5>
+    <nav class="ms-5">
+        <a class="p-3 btn btn-outline-primary" href="{% url 'main:mails_list' %}">Список рассылок</a>
+        <a class="p-3 btn btn-outline-primary" href="{% url 'main:clients_list' %}">Список клиентов</a>
+        <a class="p-3 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
+        <a class="p-3 btn btn-outline-primary" href="{% url 'main:main_page' %}">Главная страница</a>
+        {% if user.is_authenticated %}
+            <a class="p-2btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
+        {% else %}
+            <a class="p-2btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+            <a class="p-2btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+        {% endif %}
+    </nav>
+</div>
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">mailcenter</h1>
+    <p class="lead">{{ title }}</p>
+</div>
