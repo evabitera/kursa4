@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.views import generic
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Blog
 from .form import MailForm, LetterForm, ClientForm
 from .models import Client, Mail, Letter
@@ -66,13 +66,17 @@ class MailCreateView(generic.CreateView):
         return super().form_valid(form)
 
 
-class LetterCreateView(generic.CreateView):
+class LetterCreateView(LoginRequiredMixin, generic.CreateView):
     model = Letter
     form_class = LetterForm
     success_url = reverse_lazy('main:letters_list')
     extra_context = {
         'title': 'Создание письма'
     }
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class LetterDeleteView(generic.DeleteView):
@@ -103,13 +107,17 @@ class ClientDeleteView(generic.DeleteView):
     success_url = reverse_lazy('main:clients_list')
 
 
-class ClientCreateView(generic.CreateView):
+class ClientCreateView(LoginRequiredMixin, generic.CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('main:clients_list')
     extra_context = {
         'title': 'Создание клиента'
     }
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ClientsListView(generic.ListView):
@@ -155,7 +163,7 @@ class LetterDetailView(generic.DetailView):
         return context_data
 
 
-class LetterListView(generic.ListView):
+class LetterListView(LoginRequiredMixin, generic.ListView):
     model = Letter
     template_name = 'main/letters_list.html'
 
