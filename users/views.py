@@ -1,7 +1,6 @@
 import random
 import secrets
 import string
-
 from django.conf.global_settings import EMAIL_HOST_USER
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
@@ -46,7 +45,8 @@ def email_verification(request, token):
 class MyLogoutView(LogoutView):
     model = User
     form_class = RegisterForm
-    template_name = 'users/login.html'
+    template_name = 'users/logout.html'
+    next_page = reverse_lazy('users:login')
     success_url = reverse_lazy('main:mails_list')
 
     def logout_view(self):

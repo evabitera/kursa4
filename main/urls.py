@@ -1,6 +1,5 @@
 from django.urls import path
 from django.views.decorators.cache import cache_page
-
 from .views import ClientCreateView, ClientDeleteView, ClientUpdateView, ClientsListView, MailsListView, \
     MailCreateView, MailDeleteView, MailUpdateView, LetterCreateView, LetterDeleteView, LetterUpdateView, \
     MailDetailView, ClientDetailView, LetterListView, LetterDetailView, MainPageListView

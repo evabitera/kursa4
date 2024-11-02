@@ -20,15 +20,13 @@ class MainPageListView(generic.ListView):
         return context_data
 
     def get_queryset(self):
-        if Blog.objects.count() >= 3:
-            return Blog.objects.all()[0:3]
-        else:
-            return Blog.objects.all()
+        return Blog.objects.all()[:3]
 
 
-class MailsListView(generic.ListView):
+class MailsListView(LoginRequiredMixin, generic.ListView):
     model = Mail
     template_name = 'main/mails_list.html'
+    login_url = '/users/'
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -39,7 +37,7 @@ class MailsListView(generic.ListView):
         return Mail.objects.filter(user=self.request.user)
 
 
-class MailUpdateView(generic.UpdateView):
+class MailUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Mail
     form_class = MailForm
     extra_context = {
@@ -48,12 +46,12 @@ class MailUpdateView(generic.UpdateView):
     success_url = reverse_lazy('main:mails_list')
 
 
-class MailDeleteView(generic.DeleteView):
+class MailDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Mail
     success_url = reverse_lazy('main:mails_list')
 
 
-class MailCreateView(generic.CreateView):
+class MailCreateView(LoginRequiredMixin, generic.CreateView):
     model = Mail
     form_class = MailForm
     success_url = reverse_lazy('main:mails_list')
@@ -79,12 +77,12 @@ class LetterCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class LetterDeleteView(generic.DeleteView):
+class LetterDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Letter
     success_url = reverse_lazy('main:letters_list')
 
 
-class LetterUpdateView(generic.UpdateView):
+class LetterUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Letter
     form_class = LetterForm
     extra_context = {
@@ -93,7 +91,7 @@ class LetterUpdateView(generic.UpdateView):
     success_url = reverse_lazy('main:letters_list')
 
 
-class ClientUpdateView(generic.UpdateView):
+class ClientUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Client
     form_class = ClientForm
     extra_context = {
@@ -102,7 +100,7 @@ class ClientUpdateView(generic.UpdateView):
     success_url = reverse_lazy('main:clients_list')
 
 
-class ClientDeleteView(generic.DeleteView):
+class ClientDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Client
     success_url = reverse_lazy('main:clients_list')
 
@@ -120,7 +118,7 @@ class ClientCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class ClientsListView(generic.ListView):
+class ClientsListView(LoginRequiredMixin, generic.ListView):
     model = Client
     template_name = 'main/clients_list.html'
 
@@ -133,7 +131,7 @@ class ClientsListView(generic.ListView):
         return Client.objects.filter(user=self.request.user)
 
 
-class MailDetailView(generic.DetailView):
+class MailDetailView(LoginRequiredMixin, generic.DetailView):
     model = Mail
     template_name = 'main/mail_detail.html'
 
@@ -143,7 +141,7 @@ class MailDetailView(generic.DetailView):
         return context_data
 
 
-class ClientDetailView(generic.DetailView):
+class ClientDetailView(LoginRequiredMixin, generic.DetailView):
     model = Client
     template_name = 'main/client_detail.html'
 
@@ -153,7 +151,7 @@ class ClientDetailView(generic.DetailView):
         return context_data
 
 
-class LetterDetailView(generic.DetailView):
+class LetterDetailView(LoginRequiredMixin, generic.DetailView):
     model = Letter
     template_name = 'main/letter_detail.html'
 

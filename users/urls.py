@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
-from .views import RegisterView, MyLogoutView, MyLoginView, email_verification
+from .views import RegisterView, email_verification
 from .apps import UsersConfig
 
 app_name = UsersConfig.name

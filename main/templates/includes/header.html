@@ -6,14 +6,13 @@
         <a class="p-3 btn btn-outline-primary" href="{% url 'blog:blog_list' %}">Блог</a>
         <a class="p-3 btn btn-outline-primary" href="{% url 'main:main_page' %}">Главная страница</a>
         {% if user.is_authenticated %}
-            <a class="p-2btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
+            <form action="{% url 'users:logout' %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="p-2 btn btn-outline-primary">Выйти</button>
+            </form>
         {% else %}
-            <a class="p-2btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
-            <a class="p-2btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
+            <a class="p-2 btn btn-outline-primary" href="{% url 'users:register' %}">Регистрация</a>
         {% endif %}
     </nav>
-</div>
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">mailcenter</h1>
-    <p class="lead">{{ title }}</p>
 </div>
